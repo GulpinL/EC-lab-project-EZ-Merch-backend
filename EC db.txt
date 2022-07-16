@@ -1,0 +1,152 @@
+CREATE TABLE Category (
+    id int NOT NULL,
+    name varchar(100),
+	PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Product (
+    id int NOT NULL,
+    title varchar(255),
+	price float,
+	thumbnail varchar(255),
+	description varchar(255),
+	created_at datetime,
+	updated_at datetime,
+	category_id int,
+	brand varchar(100),
+	discount varchar(100),
+	PRIMARY KEY (id)
+ );
+ CREATE TABLE Feedback (
+    id int NOT NULL,
+	userId int,
+	productId int,
+	PRIMARY KEY (id)
+ );
+ CREATE TABLE User (
+    id int NOT NULL,
+    fullName varchar(50),
+	email varchar(50),
+	phoneNumber varchar(15),
+	address varchar(200),
+	password varchar(50),
+	role int,
+	PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE TheOrder (
+    id int NOT NULL,
+	orderDate datetime,
+	status int,
+	userId int,
+	payment varchar(255),
+	PRIMARY KEY (id)
+ );
+ 
+  CREATE TABLE Orderdetail (
+    id int NOT NULL,
+    orderId int,
+	productId int,
+	price float,
+	quantity  int,
+	PRIMARY KEY (id)
+ );
+ 
+   CREATE TABLE History (
+    id int NOT NULL,
+	orderDetailId int,
+	PRIMARY KEY (id)
+ );
+ 
+ 
+ALTER TABLE Orders
+ADD CONSTRAINT FK_Order_User
+FOREIGN KEY (userId) REFERENCES User(id);
+
+
+ALTER TABLE Feedback
+ADD CONSTRAINT FK_Feedback_User
+FOREIGN KEY (userId) REFERENCES User(id);
+
+
+ 
+ALTER TABLE Product
+ADD CONSTRAINT FK_Category_Product
+FOREIGN KEY (category_id) REFERENCES Category(id);
+
+ALTER TABLE Product
+ADD CONSTRAINT FK_Feedback_Product
+FOREIGN KEY (productId) REFERENCES Product(id);
+
+ALTER TABLE Orderdetail
+ADD CONSTRAINT FK_Orderdetail_Order
+FOREIGN KEY (orderId) REFERENCES TheOrder(id);
+
+
+ALTER TABLE Orderdetail
+ADD CONSTRAINT FK_Orderdetail_Product
+FOREIGN KEY (productId) REFERENCES Product(id);
+
+
+ALTER TABLE History
+ADD CONSTRAINT FK_History_Orderdetail
+FOREIGN KEY (orderDetailId) REFERENCES Product(id);
+ 
+INSERT INTO `category`(`id`, `name`) VALUES (001,'LeuCamTrai'), (002,'Vong'), (003,'TamTangDaNgoai'), (004,'TuiNgu'), (005,'NemHoi-GoiHoi'), (006,'ThamTraiPicnic'), (007,'DaoSinhTonDaNgoai'), (008,'BanGheXepDaNgoai'), (009,'DenPinDaNgoai'), (010,'BinhNuoc-ThungGiuNhiet_DaNgoai'), (011,'BepGas-BepCon_DaNgoai');
+INSERT INTO `product`(`id`, `title`, `price`, `thumbnail`, `description`, `created_at`, `updated_at`, `category_id`, `brand`, `discount`) 
+VALUES 
+(01,'LeuDaNgoaiNaturehike', 200,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 001,'Naturehike','0%'),
+(02,'LeuDaNgoaiTrackman', 150,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 001,'Trackman','0%'),
+(03,'LeuDaNgoaiTentMark', 100,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 001,'TentMark','0%'),
+(04,'LeuDaNgoaiColeman', 175,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 001,'Coleman','0%'),
+(05,'LeuDaNgoaiHewolf', 220,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 001,'Hewolf','0%'),
+
+(06,'VongDaNgoaiNaturehike', 100,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 002,'Naturehike','0%'),
+(07,'VongDaNgoaiZenph', 75,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 002,'Zenph','0%'),
+(08,'VongDaNgoaiZowee', 50,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 002,'Zowee','0%'),
+(09,'VongDaNgoaiHanmack', 90,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 002,'Hanmack','0%'),
+
+(10,'TamTangDaNgoaiNaturehike', 150,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 003,'Naturehike','0%'),
+(11,'TamTangDaNgoaiNordish', 120,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 003,'Nordish','0%'),
+(12,'TamTangDaNgoaiRobens', 100,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 003,'Robens','0%'),
+
+(13,'TuiNguNaturehike', 150,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 004,'Naturehike','0%'),
+(14,'TuiNguRei', 120,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 004,'Rei','0%'),
+(15,'TuiNguTrackman', 140,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 004,'Trackman','0%'),
+(16,'TuiNguColeman', 125,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 004,'Coleman','0%'),
+
+(17,'NemGoiHoiColeman', 50,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 005,'Coleman','0%'),
+(18,'NemGoiHoiNaturehike', 65,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 005,'Naturehike','0%'),
+(19,'NemGoiHoiBestWay', 45,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 005,'BestWay','0%'),
+(20,'NemGoiHoiIntex', 55,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 005,'Intex','0%'),
+(21,'NemGoiHoiTrackman', 50,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 005,'Trackman','0%'),
+
+(22,'ThamTraiPicnicNaturehike', 65,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 006,'Naturehike','0%'),
+
+(23,'DaoSinhTonGerber', 25,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 007,'Gerber','0%'),
+(24,'DaoSinhTonOpinel', 20,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 007,'Opinel','0%'),
+(25,'DaoSinhTonMokakniv', 20,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 007,'Mokakniv','0%'),
+
+(26,'BanGheXepNaturehike', 265,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 008,'Naturehike','0%'),
+(27,'BanGheXepCampingMoon', 135,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 008,'CampingMoon','0%'),
+(28,'BanGheXepHelinox', 155,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 008,'Helinox','0%'),
+(28,'BanGheXepBearSymbol', 115,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 008,'BearSymbol','0%'),
+
+(29,'DenPinLedLenser', 45,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 009,'LedLenser','0%'),
+(30,'DenPinNaturehike', 55,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 009,'Naturehike','0%'),
+(31,'DenPinAlonefire', 50,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 009,'Alonefire','0%'),
+(32,'DenPinCampingMoon', 55,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 009,'CampingMoon','0%'),
+
+(33,'ThungGiuNhietIgLoo', 100,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 010,'IgLoo','0%'),
+(34,'BinhNuocLaken', 60,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 010,'Laken','0%'),
+(35,'BinhNuocStanLey', 65,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 010,'StanLey','0%'),
+(36,'BinhNuocWacaco', 75,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 010,'Wacaco','0%'),
+
+(37,'BepGasCampingMoon', 85,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 011,'CampingMoon','0%'),
+(38,'BepGasPrimus', 85,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 011,'Primus','0%'),
+(39,'BepGasFireMaple', 85,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 011,'FireMaple','0%'),
+(40,'BepGasKovea', 85,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 011,'Kovea','0%'),
+(41,'BepGasNaturehike', 85,'XXAA','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 011,'Naturehike','0%')
+
+ INSERT INTO `user`(`id`, `fullName`, `email`, `phoneNumber`, `address`, `password`, `role`) VALUES (111,'NguyenVanA','ng.vanA111@gmail.com','0909111222','P8, Q1, TP.HCM','123456', 111), (222,'NguyenThiX','ng.thiX111@gmail.com','0909333444','P2, Q3, TP.HCM','123456', 222);
+ 

@@ -1,0 +1,8 @@
+{
+  "host": "",
+  "port": 3306,
+  "user": "",
+  "pass": "",
+  "db": "",
+  "dialect": "mysql"
+}
