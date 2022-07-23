@@ -1,0 +1,310 @@
+CREATE TABLE Category (
+    id int NOT NULL,
+    name varchar(100),
+	PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Product (
+    id int NOT NULL,
+    title varchar(255),
+	price float,
+	thumbnail varchar(255),
+	description varchar(255),
+	created_at datetime,
+	updated_at datetime,
+	category_id int,
+	brand varchar(100),
+	discount varchar(100),
+	PRIMARY KEY (id)
+ );
+ CREATE TABLE Feedback (
+    id int NOT NULL,
+	userId int,
+	productId int,
+	PRIMARY KEY (id)
+ );
+ CREATE TABLE User (
+    id int NOT NULL,
+    fullName varchar(50),
+	email varchar(50),
+	phoneNumber varchar(15),
+	address varchar(200),
+	password varchar(50),
+	role int,
+	PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE TheOrder (
+    id int NOT NULL,
+	orderDate datetime,
+	status int,
+	userId int,
+	payment varchar(255),
+	PRIMARY KEY (id)
+ );
+ 
+  CREATE TABLE Orderdetail (
+    id int NOT NULL,
+    orderId int,
+	productId int,
+	price float,
+	quantity  int,
+	PRIMARY KEY (id)
+ );
+ 
+   CREATE TABLE History (
+    id int NOT NULL,
+	orderDetailId int,
+	PRIMARY KEY (id)
+ );
+ 
+ 
+ALTER TABLE Orders
+ADD CONSTRAINT FK_Order_User
+FOREIGN KEY (userId) REFERENCES User(id);
+
+
+ALTER TABLE Feedback
+ADD CONSTRAINT FK_Feedback_User
+FOREIGN KEY (userId) REFERENCES User(id);
+
+
+ 
+ALTER TABLE Product
+ADD CONSTRAINT FK_Category_Product
+FOREIGN KEY (category_id) REFERENCES Category(id);
+
+ALTER TABLE Product
+ADD CONSTRAINT FK_Feedback_Product
+FOREIGN KEY (productId) REFERENCES Product(id);
+
+ALTER TABLE Orderdetail
+ADD CONSTRAINT FK_Orderdetail_Order
+FOREIGN KEY (orderId) REFERENCES TheOrder(id);
+
+
+ALTER TABLE Orderdetail
+ADD CONSTRAINT FK_Orderdetail_Product
+FOREIGN KEY (productId) REFERENCES Product(id);
+
+
+ALTER TABLE History
+ADD CONSTRAINT FK_History_Orderdetail
+FOREIGN KEY (orderDetailId) REFERENCES Product(id);
+ 
+INSERT INTO `category`(`id`, `name`) VALUES 
+(1,'Leu 2 nguoi'),
+(2,'Leu 4-5 nguoi'),
+(3,'Leu 6 nguoi'),
+(4,'Leu 8 nguoi'),
+(5,'Leu 10-14 nguoi'),
+(6,'Leu chu A 12-15 nguoi'),
+(7,'Leu thay do'),
+(8,'Tui ngu'),
+(9,'Tang che'),
+(10,'Nem hoi'),
+(11,'Goi hoi'),
+(12,'Tam cach nhiet'),
+(13,'Bac sinh hoat nho'),
+(14,'Bac sinh hoat lon'),
+(15,'Den pin cam tay'),
+(16,'Den pin doi dau'),
+(17,'Den treo leu'),
+(18,'Den pin cam trai'),
+(19,'Quat da ngoai'),
+(20,'Ghe xep da ngoai'),
+(21,'Bo ban ghe xep da ngoai'),
+(22,'Bep gas da ngoai'),
+(23,'Kho lua'),
+(24,'Bep nuong'),
+(25,'Thung da'),
+(26,'Balo cam trai'),
+(27,'Gay leo nui'),
+(28,'Ao mua'),
+(29,'Day dung leu cam trai'),
+(30,'Tam trai lot leu'),
+(31,'Vong da ngoai'),
+(32,'Mung chong mui dung cho vong'),
+(33,'Coc cam leu'),
+(34,'Bua dong coc cam leu'),
+(35,'Dao da ngoai'),
+(36,'Riu da ngoai'),
+(37,'Dung cu cam tay da nang'),
+(38,'Moc khoa da nang'),
+(39,'Vong deo tay da nang'),
+(40,'Bao da dung dung cu da nang'),
+(41,'Dong ho deo tay da nang'),
+(42,'Den gas da ngoai'),
+(43,'Tram sac du phong di dong'),
+(44,'Tui dung den da ngoai'),
+(45,'Den pin bo tui'),
+(46,'Cay treo den cam trai da ngoai'),
+(47,'Moc treo den da nang'),
+(48,'Pin sac'),
+(49,'Sac pin'),
+(50,'Binh giu nhiet da nang')
+
+INSERT INTO `product`(`id`, `title`, `price`, `thumbnail`, `description`, `created_at`, `updated_at`, `category_id`, `brand`, `discount`) 
+VALUES 
+(1,'Leu2Nguoi_Kelty', 200,'1_Leu2Nguoi_Leu2NguoiKelty','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 1,'Kelty','0%'),
+(2,'Leu2Nguoi_Vintage', 150,'2_Leu2Nguoi_Leu2NguoiVintage','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 1,'Vintage','0%'),
+
+(3,'Leu(4-5)Nguoi_Eureka', 100,'3_Leu45Nguoi_Leu45NguoiEureka','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 2,'Eureka','0%'),
+(4,'Leu(4-5)Nguoi_NatureHike', 175,'4_Leu45Nguoi_Leu45NguoiNatureHike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 2,'NatureHike','0%'),
+(5,'Leu(4-5)Nguoi_Vintage', 220,'5_Leu45Nguoi_Leu45NguoiVintage','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 2,'Vintage','0%'),
+
+(6,'Leu6Nguoi_Eureka', 250,'6_Leu6Nguoi_Leu6NguoiEureka','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 3,'Eureka','0%'),
+
+(7,'Leu8Nguoi_Naturehike', 260,'7_Leu8Nguoi_Leu8NguoiNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 4,'Naturehike','0%'),
+
+(8,'Leu(10-14)Nguoi_Outwell', 275,'8_Leu1014Nguoi_Leu1014NguoiOutwell','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 5,'Outwell','0%'),
+
+(9,'LeuChuA(12-15Nguoi)', 350,'9_LeuChuA_Leu1215Nguoi','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 6,'VN','0%'),
+
+(10,'LeuThayDo_Naturehike', 90,'10_LeuThayDo_LeuThayDoNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 7,'Naturehike','0%'),
+(11,'LeuThayDo_Blackdeer', 80,'11_LeuThayDo_LeuThayDoBlackdeer','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 7,'Blackdeer','0%'),
+
+(12,'TuiNgu_Naturehike', 150,'12_TuiNgu_TuiNguNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 8,'Naturehike','0%'),
+(13,'TuiNgu_Rei', 120,'13_TuiNgu_TuiNguRei','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 8,'Rei','0%'),
+(14,'TuiNgu_Trackman', 170,'14_TuiNgu_TuiNguTrackman','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 8,'Trackman','0%'),
+(15,'TuiNgu_Coleman', 140,'14_TuiNgu_TuiNguColeman','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 8,'Coleman','0%'),
+
+(16,'TamChe_Naturehike', 75,'16_TamChe_TamCheNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 9,'Naturehike','0%'),
+(17,'TamChe_Nordisk', 65,'17_TamChe_TamCheNordisk','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 9,'Nordisk','0%'),
+(18,'TamChe_Robens', 85,'18_TamChe_TamCheRobens','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 9,'Robens','0%'),
+
+(19,'NemHoi_Coleman', 140,'19_NemHoi_NemHoiColeman','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 10,'Coleman','0%'),
+(20,'NemHoi_Naturehike', 150,'20_NemHoi_NemHoiNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 10,'Naturehike','0%'),
+(21,'NemHoi_Intex', 142,'21_NemHoi_NemHoiIntex','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 10,'Intex','0%'),
+(22,'NemHoi_Trackman', 134,'22_NemHoi_NemHoiTrackman','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 10,'Trackman','0%'),
+
+(23,'GoiHoi_Naturehike', 45,'23_GoiHoi_GoiHoiNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 11,'Naturehike','0%'),
+
+(24,'TamCachNhiet', 80,'24_TamCachNhiet_TamCachNhietVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 12,'VN','0%'),
+
+(25,'BacSinhHoatNho', 70,'25_BacSinhHoatNho_BacSinhHoatNhoVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 13,'VN','0%'),
+
+(26,'BacSinhHoatLon', 85,'26_BacSinhHoatLon_BacSinhHoatLonVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 14,'VN','0%'),
+
+(27,'DenPinCamTay_LedLenser', 125,'27_DenPinCamTay_DenPinCamTayLedLenser','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 15,'LedLenser','0%'),
+(28,'DenPinCamTay_Naturehike', 135,'28_DenPinCamTay_DenPinCamTayNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 15,'Naturehike','0%'),
+(29,'DenPinCamTay_Fenix', 115,'29_DenPinCamTay_DenPinCamTayFenix','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 15,'Fenix','0%'),
+
+(30,'DenPinDoiDau_Fenix', 85,'30_DenPinDoiDau_DenPinDoiDauFenix','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 16,'Fenix','0%'),
+(31,'DenPinDoiDau_LedLenser', 95,'31_DenPinDoiDau_DenPinDoiDauLedLenser','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 16,'LedLenser','0%'),
+
+(32,'DenTreoLeu_Fenix', 135,'32_DenTreoLeu_DenTreoLeuFenix','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 17,'Fenix','0%'),
+
+(33,'DenPinCamTrai_BareBones', 115,'33_DenPinCamTrai_DenPinCamTraiBareBones','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 18,'BareBones','0%'),
+(34,'DenPinCamTrai_LedLenser', 145,'34_DenPinCamTrai_DenPinCamTraiLedLenser','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 18,'LedLenser','0%'),
+
+(35,'QuatDaNgoai', 150,'35_QuatDaNgoai_QuatDaNgoaiVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 19,'VN','0%'),
+
+(36,'GheXepDaNgoai_CampingMoon', 75,'36_GheXepDaNgoai_GheXepDaNgoaiCampingMoon','Great', '2022-07-07 19:00:00','2022-07-07 19:00:00', 20,'CampingMoon','0%'),
+(37,'GheXepDaNgoai_Helinox', 65,'37_GheXepDaNgoai_GheXepDaNgoaiHelinox','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 20,'Helinox','0%'),
+(38,'GheXepDaNgoai_BearSymbol', 55,'38_GheXepDaNgoai_GheXepDaNgoaiBearSymbol','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 20,'BearSymbol','0%'),
+(39,'GheXepDaNgoai_Naturehike', 85,'39_GheXepDaNgoai_GheXepDaNgoaiNaturehike','Great', '2022-07-07 19:00:00','2022-07-07 19:00:00', 20,'Naturehike','0%'),
+
+(40,'BoBanGheXepDaNgoai_Naturehike', 155,'40_GheXepDaNgoai_GheXepDaNgoaiNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 21,'Naturehike','0%'),
+
+(41,'BepGasDaNgoai_CongSuatLonFireMaple', 65,'41_BepGasDaNgoai_BepGasDaNgoaiCongSuatLonFireMaple','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 22,'FireMaple','0%'),
+(42,'BepGasDaNgoai_DungBinhDaiFireMaple', 55,'42_BepGasDaNgoai_BepGasDaNgoaiDungBinhDaiFireMaple','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 22,'FireMaple','0%'),
+(43,'BepGasDaNgoai_TitaniumFireMaple', 75,'43_BepGasDaNgoai_BepGasDaNgoaiTitaniumFireMaple','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 22,'FireMaple','0%'),
+(44,'BepGasDaNgoai_KoveaCubeStove', 75,'44_BepGasDaNgoai_BepGasDaNgoaiKoveaCubeStove','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 22,'KoveaCubeStove','0%'),
+
+(45,'KhoLua_FireMaple', 55,'45_KhoLua_KhoLuaFireMaple','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 23,'FireMaple','0%'),
+(46,'KhoLua_NamiLux', 55,'46_KhoLua_KhoLuaNamiLux','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 23,'NamiLux','0%'),
+
+(47,'BepNuong_CampingMoon', 85,'47_BepNuong_BapNuongCampingMoon','Great','2022-03-01 19:00:00','2022-03-01 19:00:00', 24,'CampingMoon','0%'),
+(48,'BepNuong_Lartisan', 75,'48_BepNuong_BapNuongLartisan','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 24,'Lartisan','0%'),
+(49,'BepNuong_Naturehike', 90,'49_BepNuong_BapNuongNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 24,'Naturehike','0%'),
+
+(50,'ThungDa_IgLoo', 60,'50_ThungDa_ThungDaIgLoo','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 25,'IgLoo','0%'),
+(51,'ThungDa_VN', 40,'51_ThungDa_ThungDaVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 25,'VN','0%'),
+
+(52,'BaLo_VN', 80,'52_Balo_BaloVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 26,'VN','0%'),
+(53,'BaLo_HelinoxLassicDuffleS', 180,'53_Balo_BaloHelinoxLassicDuffleS','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 26,'Helinox','0%'),
+(54,'BaLo_HelinoxOrigamiTote', 150,'54_Balo_BaloHelinoxOrigamiTote','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 26,'Helinox','0%'),
+
+(55,'GayLeoNui_VN', 80,'55_GayLeoNui_GayLeoNuiVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 27,'VN','0%'),
+
+(56,'AoMua_VN', 20,'56_AoMua_AoMuaVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 28,'VN','0%'),
+
+(57,'DayDungLeoCamTrai_VN', 30,'57_DayDungLeoCamTrai_DayDungLeoCamTraiVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 29,'VN','0%'),
+
+(58,'TamTraiLotLeu_VN', 70,'58_TamTraiLotLeu_TamTraiLotLeuVN','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 30,'VN','0%'),
+(59,'TamTraiLotLeu_GlampingVintage', 80,'59_TamTraiLotLeu_TamTraiLotLeuGlampingVintage','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 30,'GlampingVintage','0%'),
+
+(60,'VongDaNgoai_CanvasKALAHammock', 75,'60_VongDaNgoai_VongDaNgoaiCanvasKALAHammock','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 31,'Canvas','0%'),
+(61,'VongDaNgoai_KALAHammock', 85,'61_VongDaNgoai_VongDaNgoaiKALAHammock','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 31,'KALAHammock','0%'),
+(62,'VongDaNgoai_Enos', 65,'62_VongDaNgoai_VongDaNgoaiEnos','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 31,'Enos','0%'),
+(63,'VongDaNgoai_Nuturehike', 90,'63_VongDaNgoai_VongDaNgoaiNuturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 31,'Nuturehike','0%'),
+
+(64,'MungChongMui_Nuturehike', 90,'64_MungChongMuiDungChoVong_MungChongMuiNuturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 32,'Nuturehike','0%'),
+
+(65,'CocCamLeu_CampingMoon', 20,'65_CocCamLeu_CocCamLeuCampingMoon','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 33,'CampingMoon','0%'),
+
+(66,'BuaDongCocCamLeu_CampingMoon', 90,'66_BuaDongCocCamLeu_BuaDongCocCamLeuCampingMoon','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 34,'CampingMoon','0%'),
+
+(67,'DaoDaNgoai_Morakniv', 50,'67_DaoDaNgoai_DaoDaNgoaiMorakniv','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 35,'Morakniv','0%'),
+(68,'DaoDaNgoai_Barebones', 55,'68_DaoDaNgoai_DaoDaNgoaiBarebones','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 35,'Barebones','0%'),
+
+(69,'RiuDaNgoai_MoraknivCamping', 75,'69_RiuDaNgoai_DaoDaNgoaiMoraknivCamping','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 36,'Morakniv','0%'),
+
+(70,'DungCuCamTayDaNang_LeathermanWingman', 55,'70_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanWingman','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(71,'DungCuCamTayDaNang_LeathermanSkeletool', 55,'71_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanSkeletool','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(72,'DungCuCamTayDaNang_LeathermanSurgeBlack', 55,'72_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanSurgeBlack','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(73,'DungCuCamTayDaNang_LeathermanSignal', 55,'73_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanSignal','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(74,'DungCuCamTayDaNang_LeathermanRev', 55,'74_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanRev','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(75,'DungCuCamTayDaNang_LeathermanBond', 55,'75_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanBond','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(76,'DungCuCamTayDaNang_LeathermanCharge', 55,'76_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanCharge','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+(77,'DungCuCamTayDaNang_LeathermanSidekickSilver', 55,'77_DungCuCamTayDaNang_DungCuCamTayDaNangLeathermanSidekickSilver','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 37,'Leatherman','0%'),
+
+(78,'MocKhoaDaNang_LeathermanCarabinerCapLifter', 35,'78_MocKhoaDaNang_MocKhoaDaNangLeathermanCarabiner','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 38,'Leatherman','0%'),
+
+(79,'VongDeoTayDaNang_LeathermanTreadLTBlack', 65,'79_VongDeoTayDaNang_VongDeoTayDaNangLeathermanTreadLTBlack','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 39,'Leatherman','0%'),
+
+(80,'BaoDaDungDungCu_LeathermanHeritageSheath', 45,'80_BaoDaDungDungCu_BaoDaDungDungCuLeathermanHeritageSheath','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 40,'Leatherman','0%'),
+
+(81,'DongHoDeoTay_LeathermanTreadTempo', 105,'81_DongHoDeoTay_DongHoDeoTayLeathermanTreadTempo','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 41,'Leatherman','0%'),
+
+(82,'DenGasDaNgoai_FireMapleOrangeGasLatern', 75,'82_DenGasDaNgoai_DenGasDaNgoaiFireMapleOrangeGasLatern','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'FireMaple','0%'),
+(83,'DenGasDaNgoai_FireMapleLaternCampingGas', 75,'83_DenGasDaNgoai_DenGasDaNgoaiFireMapleLaternCampingGas','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'FireMaple','0%'),
+(84,'DenGasDaNgoai_CampingMoonT4S', 75,'84_DenGasDaNgoai_DenGasDaNgoaiCampingMoonT4S','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'CampingMoon','0%'),
+(85,'DenGasDaNgoai_CampingMoonT4', 115,'85_DenGasDaNgoai_DenGasDaNgoaiCampingMoonT4','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'CampingMoon','0%'),
+(86,'DenGasDaNgoai_CampingMoonT1', 105,'86_DenGasDaNgoai_DenGasDaNgoaiCampingMoonT1','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'CampingMoon','0%'),
+(87,'DenGasDaNgoai_CampingMoonT8', 145,'87_DenGasDaNgoai_DenGasDaNgoaiCampingMoonT8','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'CampingMoon','0%'),
+(88,'DenGasDaNgoai_PrimusEasyLightLatern', 175,'88_DenGasDaNgoai_DenGasDaNgoaiPrimusEasyLightLatern','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 42,'Primus','0%'),
+ 
+(89,'TramSacDiDong_Allpowers', 275,'89_TramSacDiDong_TramSacDiDongAllpowers','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 43,'Allpowers','0%'),
+(90,'TramSacDiDong_EcoflowRiverProPortablePowerStation', 875,'90_TramSacDiDong_TramSacDiDongEcoflowRiverProPortablePowerStation','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 43,'Ecoflow','0%'),
+(91,'TramSacDiDong_EcoflowDelta1300PowerStation', 1275,'91_TramSacDiDong_TramSacDiDongEcoflowDelta1300PowerStation','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 43,'Ecoflow','0%'),
+
+(92,'TuiDungDenGasDaNgoai_CampingMoonT9BC', 85,'92_TuiDungDenGasDaNgoai_TuiDungDenGasDaNgoaiCampingMoonT9BC','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 44,'CampingMoon','0%'),
+(93,'TuiDungDenGasDaNgoai_Naturehike', 75,'93_TuiDungDenGasDaNgoai_TuiDungDenGasDaNgoaiNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 44,'Naturehike','0%'),
+
+(94,'DenPinBoTui_LedlenseriW4R', 175,'94_DenPinBoTui_DenPinBoTuiLedlenseriW4R','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 45,'Ledlenser','0%'),
+
+(95,'CayTreoDenCamTrai_Naturehike', 95,'95_CayTreoDenCamTrai_CayTreoDenCamTraiNaturehike','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 46,'Naturehike','0%'),
+(96,'CayTreoDenCamTrai_CampingMoon', 85,'96_CayTreoDenCamTrai_CayTreoDenCamTraiCampingMoon','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 46,'CampingMoon','0%'),
+(97,'CayTreoDenCamTrai_GlampingTNR', 105,'97_CayTreoDenCamTrai_CayTreoDenCamTraiGlampingTNR','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 46,'Glamping','0%'),
+
+(98,'MocTreoDenCamTrai_CampingMoon', 35,'98_MocTreoDenCamTrai_MocTreoDenCamTraiCampingMoon','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 47,'CampingMoon','0%'),
+
+(99,'PinSac_PowerbankFlex3', 65,'99_PinSac_PinSacPowerbankFlex3','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 48,'Ledlenser','0%'),
+(100,'PinSac_PowerbankFlex7', 95,'99_PinSac_PinSacPowerbankFlex7','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 48,'Ledlenser','0%'),
+
+(101,'SacPin_FenixARED1', 65,'101_SacPin_SacPinFenixARED1','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 49,'Fenix','0%'),
+(102,'SacPin_FenixARED2', 85,'102_SacPin_SacPinFenixARED2','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 49,'Fenix','0%'),
+(103,'SacPin_FenixAREA2', 75,'103_SacPin_SacPinFenixAREA2','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 49,'Fenix','0%'),
+
+(104,'BinhGiuNhiet_WacacoNanovessel', 55,'104_BinhGiuNhiet_BinhGiuNhietWacacoNanovessel','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Wacaco','0%'),
+(105,'BinhGiuNhiet_WacacoOctaroma', 65,'105_BinhGiuNhiet_BinhGiuNhietWacacoOctaroma','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Wacaco','0%'),
+(106,'BinhGiuNhiet_StanleyLegacyQuadvac1L', 95,'106_BinhGiuNhiet_BinhGiuNhietStanleyLegacyQuadvac1L','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Stanley','0%'),
+(107,'BinhGiuNhiet_StanleyCanteenAdvanture1L', 98,'107_BinhGiuNhiet_BinhGiuNhietStanleyCanteenAdvanture1L','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Stanley','0%'),
+(108,'BinhGiuNhiet_StanleyMasterFlask', 104,'108_BinhGiuNhiet_BinhGiuNhietStanleyMasterFlask','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Stanley','0%'),
+(109,'BinhGiuNhiet_LakenClassic', 70,'109_BinhGiuNhiet_BinhGiuNhietLakenClassic','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Laken','0%'),
+(110,'BinhGiuNhiet_LakenJannu', 80,'110_BinhGiuNhiet_BinhGiuNhietLakenJannu','Great','2022-07-07 19:00:00','2022-07-07 19:00:00', 50,'Laken','0%')
+
+INSERT INTO `user`(`id`, `fullName`, `email`, `phoneNumber`, `address`, `password`, `role`) VALUES (111,'NguyenVanA','ng.vanA111@gmail.com','0909111222','P8, Q1, TP.HCM','123456', 111), (222,'NguyenThiX','ng.thiX111@gmail.com','0909333444','P2, Q3, TP.HCM','123456', 222);
+ 

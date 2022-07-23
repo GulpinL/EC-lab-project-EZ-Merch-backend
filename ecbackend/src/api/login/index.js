@@ -6,5 +6,8 @@ const loginController = require('./login.controller');
 // routing goes here
 router.post('/signInLocal', loginController.signInLocal);
 
+
+router.post('/register', loginController.register);
+
 //
 module.exports = router;
